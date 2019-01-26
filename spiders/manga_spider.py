@@ -1,18 +1,21 @@
 import scrapy
 from scrapy_splash import SplashRequest
 #store urls of target websites here
-from toCrawls import urls
+import toCrawls
+import mangaList
 
 class mangaSpider(scrapy.Spider):
     name = "manga"
 
     def start_requests(self):
         #urls = ["http://comic.kukudm.com/comiclist/2035/68893/2.htm",]
-        for url in urls:
-            yield SplashRequest(url,self.parse,
-                endpoint='render.html',
-                args={'wait':0.5},
-            )
+        for manga in mangaList.mangaUrls:
+            urls = toCrawls.createChap(manga,10)
+            for url in urls:
+                yield SplashRequest(url,self.parse,
+                    endpoint='render.html',
+                    args={'wait':0.5},
+                )
 
     def parse(self,response):
         # part = response.url.split("/")[-1]
