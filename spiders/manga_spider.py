@@ -10,11 +10,11 @@ class mangaSpider(scrapy.Spider):
     def start_requests(self):
         #urls = ["http://comic.kukudm.com/comiclist/2035/68893/2.htm",]
         for manga in mangaList.mangaUrls:
-            urls = toCrawls.createChap(manga,10)
+            urls = toCrawls.createChap(manga,20)
             for url in urls:
                 yield SplashRequest(url,self.parse,
                     endpoint='render.html',
-                    args={'wait':0.5},
+                    args={'wait':3},
                 )
 
     def parse(self,response):
@@ -24,6 +24,9 @@ class mangaSpider(scrapy.Spider):
         # with open(filename, 'wb' ) as f:
         #     f.write(response.body)
         # self.log('Saved file %s' % filename)
+	#print("hi there////////////////////////////")
+	#print(response.body)
+	print(response.css('a img'))
         yield {
 		'img': response.css('a img').extract_first()
 	}

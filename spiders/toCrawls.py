@@ -3,5 +3,5 @@
 def createChap(url,num):
     urls=[]
     for i in range(num):
-        urls.append(url+'%s.htm' % i)
+        urls.append(url+'%s.htm' %(i+1))
     return urls
