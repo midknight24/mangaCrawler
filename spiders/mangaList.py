@@ -1,4 +1,4 @@
-mangaUrls = ['http://comic.kukudm.com/comiclist/2274/68949/',
-	'http://comic.kukudm.com/comiclist/2157/68827/',
-	'http://comic.kukudm.com/comiclist/2330/68902/',
-	'http://comic.kukudm.com/comiclist/2398/63979/']
+mangaUrls = [['http://comic.kukudm.com/comiclist/2394/67163/','26'],
+        ['http://comic.kukudm.com/comiclist/2394/67733/','28'],
+        ['http://comic.kukudm.com/comiclist/2394/68821/','29'],
+        ['http://comic.kukudm.com/comiclist/2394/67542/','27']]

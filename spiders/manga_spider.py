@@ -29,12 +29,15 @@ class mangaSpider(scrapy.Spider):
                         end
                         """
         for manga in mangaList.mangaUrls:
-            urls = toCrawls.createChap(manga,20)
+            urls = toCrawls.createChap(manga[0],20)
+	    print('///////////////////////////////////'+manga[0])
+            name = manga[1]
             for url in urls:
                 yield SplashRequest(url,self.parse,
                     # endpoint='render.html',
                     endpoint='execute',
                     args={'wait':3,'lua_source':wait_script},
+                    meta={'name':name}
                 )
 
     def parse(self,response):
@@ -48,6 +51,8 @@ class mangaSpider(scrapy.Spider):
 	#print(response.body)
 	# print(response.css('a img'))
         yield {
-		'img': response.css('a img').extract_first()
+		'img': response.css('a img').extract_first(),
+        'name': response.meta.get('name')
 	}
+
 
