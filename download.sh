@@ -5,5 +5,5 @@ while read line; do
   arr=(${line//||/ })
   echo ${arr[0]}
   echo ${arr[1]}
-  wget -P ~/${arr[1]}/ ${arr[0]}
+  wget -P ~manga/${arr[1]}/ ${arr[0]}
 done <$1
