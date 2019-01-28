@@ -14,8 +14,10 @@ class mangaSpider(scrapy.Spider):
                             assert(splash:wait(0.5))
 
                             function wait_for(splash,cond)
-                                while not cond() do
+                                local times = 0
+                                while (not cond()) and (times<100) do
                                     splash:wait(0.05)
+                                    times = times + 1
                                 end
                             end
 
