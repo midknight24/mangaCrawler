@@ -1,1 +1,1 @@
-mangaUrls = [['http://comic.kukudm.com/comiclist/2394/67733/','26'],]
+mangaUrls = [['http://comic.kukudm.com/comiclist/2359/68967/','tester'],]

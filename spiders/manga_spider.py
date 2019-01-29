@@ -11,11 +11,13 @@ class mangaSpider(scrapy.Spider):
         wait_script = """
                         function main(splash,args)
                             assert(splash:go(args.url))
-                            assert(splash:wait(0.5))
+                            assert(splash:wait(1))
 
                             function wait_for(splash,cond)
-                                while not cond() do
+                                local times = 0
+                                while (not cond()) and (times<100) do
                                     splash:wait(0.05)
+                                    times = times + 1
                                 end
                             end
 
@@ -30,14 +32,15 @@ class mangaSpider(scrapy.Spider):
                         """
         for manga in mangaList.mangaUrls:
             urls = toCrawls.createChap(manga[0],20)
-	    print('///////////////////////////////////'+manga[0])
             name = manga[1]
+            page = 0
             for url in urls:
+                page = page + 1
                 yield SplashRequest(url,self.parse,
                     # endpoint='render.html',
                     endpoint='execute',
                     args={'wait':3,'lua_source':wait_script},
-                    meta={'name':name}
+                    meta={'name':name,'page':page}
                 )
 
     def parse(self,response):
@@ -52,7 +55,8 @@ class mangaSpider(scrapy.Spider):
 	# print(response.css('a img'))
         yield {
 		'img': response.css('a img').extract_first(),
-        'name': response.meta.get('name')
+	        'name': response.meta.get('name'),
+		'page': response.meta.get('page')
 	}
 
 
