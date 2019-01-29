@@ -6,7 +6,7 @@ while read line; do
   declare -a arr
   arr=(${line//||/ })
   mkdir ~/manga/${arr[1]}
-  wget -P ~/manga/${arr[1]}/${arr[2]}.jpg ${arr[0]} &
+  wget -O ~/manga/${arr[1]}/${arr[2]}.jpg ${arr[0]} &
   if (("$count">30));then
     sleep 5
     count=0
