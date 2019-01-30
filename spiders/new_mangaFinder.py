@@ -7,7 +7,9 @@ class spider(scrapy.Spider):
 
     def start_requests(self):
         for manga in watchList.wlist:
-            yield scrapy.Request(url=manga['url'], callback=self.parse, meta={'name':manga['name']})
+            yield scrapy.Request(url=manga['url'], callback=self.parse, meta={'name':manga['name'],
+                                                                              'mainPage':manga['url']
+                                                                            })
 
     def parse(self, response):
 
@@ -18,12 +20,13 @@ class spider(scrapy.Spider):
         result = "http://comic.kukudm.com"+result
 
         name = response.meta.get('name')
+        url = response.meta.get('mainPage')
 
         #connect to db
         older = sqlConnector.getLatest(name)
         if result != older or older == None:
             #update db
-            sqlConnector.update(name,result)
+            sqlConnector.update(name,url,result)
             yield {
                 'url': result,
                 'name': response.meta.get('name')
