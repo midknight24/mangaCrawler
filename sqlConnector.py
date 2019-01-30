@@ -26,13 +26,13 @@ def getLatest(url):
         name = (url,)
         cursor.execute(queryComp,name)
         temp = cursor.fetchone()
+    except Error as e:
+        print('Error:',e)
+    finally:
         if temp != None:
             return temp[0]
         else:
             return None
-    except Error as e:
-        print('Error:',e)
-    finally:
         cursor.close()
         conn.close()    
     
