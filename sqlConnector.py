@@ -18,20 +18,21 @@ def connect():
 
 
 
-def getLatest(name):
+def getLatest(url):
     try:
         conn = connect()
         cursor = conn.cursor()
         queryComp = "SELECT LATEST FROM manga WHERE name = %s"
+        name = (url,)
         cursor.execute(queryComp,name)
         temp = cursor.fetchone()
+    except Error as e:
+        print('Error:',e)
+    finally:
         if temp != None:
             return temp[0]
         else:
             return None
-    except Error as e:
-        print('Error:',e)
-    finally:
         cursor.close()
         conn.close()    
     
