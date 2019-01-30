@@ -40,7 +40,7 @@ def getLatest(name):
 def update(name,url,latest):
     try:
         conn = connect()
-        cursor = conn.cursor
+        cursor = conn.cursor()
         queryUpdate = "INSERT INTO manga (name,url,latest) VALUES (%s,%s,%s) ON DUPLICATE KEY UPDATE latest=%s"
         args = (name, url, latest, latest)
         cursor.execute(queryUpdate,args)
