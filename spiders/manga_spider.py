@@ -47,15 +47,6 @@ class mangaSpider(scrapy.Spider):
                 )
 
     def parse(self,response):
-        # part = response.url.split("/")[-1]
-        # page = part.split(".")[-2]
-        # filename = 'manga-%s.html' % page
-        # with open(filename, 'wb' ) as f:
-        #     f.write(response.body)
-        # self.log('Saved file %s' % filename)
-	#print("hi there////////////////////////////")
-	#print(response.body)
-	# print(response.css('a img'))
         yield {
 		'img': response.css('a img').extract_first(),
 	    'name': response.meta.get('name'),
