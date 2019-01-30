@@ -2,5 +2,9 @@ wlist=[
     {'url':'http://comic.kukudm.com/comiclist/2274/index.htm',
     'name':'cantStudy'},
     {'url':'http://comic.kukudm.com/comiclist/2571/index.htm',
-    'name':'Lord_of_Black'}
+    'name':'Lord_of_Black'},
+    {'url':'http://comic.kukudm.com/comiclist/2154/index.htm',
+    'name':'Yuuna_from_hot_spring'},
+    {'url':'http://comic.kukudm.com/comiclist/2351/index.htm',
+    'name':'single_eye_warrior'}
     ]

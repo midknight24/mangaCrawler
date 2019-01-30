@@ -38,7 +38,7 @@ class mangaSpider(scrapy.Spider):
             for url in urls:
                 page = page + 1
                 if(page%5==0):
-                    time.sleep(3)
+                    time.sleep(5)
                 yield SplashRequest(url,self.parse,
                     # endpoint='render.html',
                     endpoint='execute',
