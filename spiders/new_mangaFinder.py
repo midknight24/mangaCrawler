@@ -19,7 +19,7 @@ class spider(scrapy.Spider):
         result = result[:-5]
         result = "http://comic.kukudm.com"+result
 
-        #number of pages in latest chap
+        #number of pages in latest chp
         numPages = 15
 
         name = response.meta.get('name')

@@ -32,7 +32,7 @@ class mangaSpider(scrapy.Spider):
                         end
                         """
         for manga in mangaList.fetchUrls():
-            urls = toCrawls.createChap(manga[0],20)
+            urls = toCrawls.createChap(manga[0],15)
             name = manga[1]
             page = 0
             for url in urls:

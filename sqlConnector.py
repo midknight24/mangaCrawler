@@ -22,7 +22,7 @@ def getLatest(url):
     try:
         conn = connect()
         cursor = conn.cursor()
-        query = "SELECT LATEST FROM manga WHERE name = %s"
+        query = "SELECT latest FROM manga WHERE name = %s"
         name = (url,)
         cursor.execute(query,name)
         temp = cursor.fetchone()
@@ -56,10 +56,9 @@ def getMangaNames():
     try:
         conn = connect()
         cursor = conn.cursor()
-        query = "SELECT NAME FROM MANGA"
+        query = "SELECT name FROM manga"
         cursor.execute(query)
         names = cursor.fetchall()
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!name"+names)
     except Error as e:
         print('Error:',e)
     finally:
@@ -68,14 +67,14 @@ def getMangaNames():
         return names
 
 def getMangaPage(name):
-     try:
+    try:
         conn = connect()
         cursor = conn.cursor()
-        query = "SELECT numPages FROM MANGA WHERE name=%s"
+        query = "SELECT numPages FROM manga WHERE name=%s"
         args = (name,)
         cursor.execute(query,args)
-        page = cursor.fetchone()
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!name"+page)
+        page = cursor.fetchone()[0]
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+page)
     except Error as e:
         print('Error:',e)
     finally:
@@ -88,10 +87,10 @@ def getCrawled(name):
     try:
         conn = connect()
         cursor = conn.cursor()
-        query = "SELECT crawled FROM MANGA WHERE name=%s"
+        query = "SELECT crawled FROM manga WHERE name=%s"
         args = (name,)
         cursor.execute(query,args)
-        status = cursor.fetchone
+        status = cursor.fetchone()[0]
     except Error as e:
         print('Error:',e)
     finally:
@@ -107,6 +106,7 @@ def updateCrawled(name,status):
         query = "UPDATE manga SET crawled = %s WHERE name = %s"
         args = (status,name)
         cursor.execute(query,args)
+        conn.commit()
     except Error as e:
         print('Error:',e)
     finally:
