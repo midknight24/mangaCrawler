@@ -19,14 +19,18 @@ class spider(scrapy.Spider):
         result = result[:-5]
         result = "http://comic.kukudm.com"+result
 
+        #number of pages in latest chap
+        numPages = 15
+
         name = response.meta.get('name')
         url = response.meta.get('mainPage')
 
         #connect to db
         older = sqlConnector.getLatest(name)
-        if result != older or older == None:
+        status = sqlConnector.getCrawled(name)
+        if result != older or older == None or status==0 :
             #update db
-            sqlConnector.update(name,url,result)
+            sqlConnector.update(name,url,result,numPages)
             yield {
                 'url': result,
                 'name': response.meta.get('name')
