@@ -24,7 +24,7 @@ def getLatest(name):
         cursor = conn.cursor()
         queryComp = "SELECT LATEST FROM manga WHERE name = %s"
         cursor.execute(queryComp,name)
-        temp = cursor.fetchone();
+        temp = cursor.fetchone()
         if temp != None:
             return temp[0]
         else:
@@ -37,12 +37,12 @@ def getLatest(name):
     
 
 
-def update(name,url):
+def update(name,url,latest):
     try:
         conn = connect()
         cursor = conn.cursor
-        queryUpdate = "INSERT INTO MANGA (name,latest) VALUES (%s,%s) ON DUPLICATE KEY UPDATE latest=%s"
-        args = (name, url, url)
+        queryUpdate = "INSERT INTO manga (name,url,latest) VALUES (%s,%s,%s) ON DUPLICATE KEY UPDATE latest=%s"
+        args = (name, url, latest, latest)
         cursor.execute(queryUpdate,args)
         conn.commit()
     except Error as e:
