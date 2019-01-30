@@ -22,29 +22,29 @@ def getLatest(url):
     try:
         conn = connect()
         cursor = conn.cursor()
-        queryComp = "SELECT LATEST FROM manga WHERE name = %s"
+        query = "SELECT LATEST FROM manga WHERE name = %s"
         name = (url,)
-        cursor.execute(queryComp,name)
+        cursor.execute(query,name)
         temp = cursor.fetchone()
     except Error as e:
         print('Error:',e)
     finally:
+        cursor.close()
+        conn.close()    
         if temp != None:
             return temp[0]
         else:
             return None
-        cursor.close()
-        conn.close()    
     
 
 
-def update(name,url,latest):
+def update(name,url,latest,numPages):
     try:
         conn = connect()
         cursor = conn.cursor()
-        queryUpdate = "INSERT INTO manga (name,url,latest) VALUES (%s,%s,%s) ON DUPLICATE KEY UPDATE latest=%s"
-        args = (name, url, latest, latest)
-        cursor.execute(queryUpdate,args)
+        query = "INSERT INTO manga (name,url,latest,numPages,crawled) VALUES (%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE latest=%s"
+        args = (name, url, latest, numPages, 0, latest)
+        cursor.execute(query,args)
         conn.commit()
     except Error as e:
         print('Error:',e)
@@ -52,5 +52,68 @@ def update(name,url,latest):
         cursor.close()
         conn.close()
 
+def getMangaNames():
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        query = "SELECT NAME FROM MANGA"
+        cursor.execute(query)
+        names = cursor.fetchall()
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!name"+names)
+    except Error as e:
+        print('Error:',e)
+    finally:
+        cursor.close()
+        conn.close()
+        return names
+
+def getMangaPage(name):
+     try:
+        conn = connect()
+        cursor = conn.cursor()
+        query = "SELECT numPages FROM MANGA WHERE name=%s"
+        args = (name,)
+        cursor.execute(query,args)
+        page = cursor.fetchone()
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!name"+page)
+    except Error as e:
+        print('Error:',e)
+    finally:
+        cursor.close()
+        conn.close()
+        return page
+
+
+def getCrawled(name):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        query = "SELECT crawled FROM MANGA WHERE name=%s"
+        args = (name,)
+        cursor.execute(query,args)
+        status = cursor.fetchone
+    except Error as e:
+        print('Error:',e)
+    finally:
+        cursor.close()
+        conn.close()
+        return status
+
+
+def updateCrawled(name,status):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        query = "UPDATE manga SET crawled = %s WHERE name = %s"
+        args = (status,name)
+        cursor.execute(query,args)
+    except Error as e:
+        print('Error:',e)
+    finally:
+        cursor.close()
+        conn.close()
+
+
 if __name__ == '__main__':
     connect()
+
