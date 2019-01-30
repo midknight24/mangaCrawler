@@ -2,6 +2,7 @@ import scrapy
 from scrapy_splash import SplashRequest
 #store urls of target websites here
 import toCrawls
+import time
 from .. import mangaList
 
 class mangaSpider(scrapy.Spider):
@@ -36,6 +37,8 @@ class mangaSpider(scrapy.Spider):
             page = 0
             for url in urls:
                 page = page + 1
+                if(page%5==0):
+                    time.sleep(3)
                 yield SplashRequest(url,self.parse,
                     # endpoint='render.html',
                     endpoint='execute',
