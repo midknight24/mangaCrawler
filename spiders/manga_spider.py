@@ -2,7 +2,7 @@ import scrapy
 from scrapy_splash import SplashRequest
 #store urls of target websites here
 import toCrawls
-import mangaList
+from .. import mangaList
 
 class mangaSpider(scrapy.Spider):
     name = "manga"
