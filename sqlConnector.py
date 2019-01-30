@@ -18,11 +18,12 @@ def connect():
 
 
 
-def getLatest(name):
+def getLatest(url):
     try:
         conn = connect()
         cursor = conn.cursor()
         queryComp = "SELECT LATEST FROM manga WHERE name = %s"
+        name = (url,)
         cursor.execute(queryComp,name)
         temp = cursor.fetchone()
         if temp != None:
