@@ -1,5 +1,6 @@
 import scrapy
 from .. import watchList
+from .. import sqlConnector
 
 class spider(scrapy.Spider):
     name = "newEpi"
@@ -15,11 +16,14 @@ class spider(scrapy.Spider):
         #remove the page part
         result = result[:-5]
         result = "http://comic.kukudm.com"+result
-        older = '0'#result from db
-        if result != older:
 
+        name = response.meta.get('name')
+
+        #connect to db
+        older = sqlConnector.getLatest(name)
+        if result != older or older == None:
             #update db
-
+            sqlConnector.update(name,result)
             yield {
                 'url': result,
                 'name': response.meta.get('name')

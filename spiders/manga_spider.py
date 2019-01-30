@@ -55,7 +55,7 @@ class mangaSpider(scrapy.Spider):
 	# print(response.css('a img'))
         yield {
 		'img': response.css('a img').extract_first(),
-	        'name': response.meta.get('name'),
+	    'name': response.meta.get('name'),
 		'page': response.meta.get('page')
 	}
 
