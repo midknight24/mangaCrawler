@@ -33,8 +33,9 @@ class mangaSpider(scrapy.Spider):
                         end
                         """
         for manga in mangaList.fetchUrls():
-            urls = toCrawls.createChap(manga[0],15)
             name = manga[1]
+            numPage = sqlConnector.getMangaPage(name)
+	    urls = toCrawls.createChap(manga[0],numPage)
             page = 0
             for url in urls:
                 page = page + 1
@@ -54,11 +55,11 @@ class mangaSpider(scrapy.Spider):
         parsedTP = int(rawTotalPages.split('|')[1].split(u'\u5171')[1].split(u'\u9875')[0])
         name = response.meta.get('name')
         sqlConnector.updateMangaPage(name,parsedTP)
-            yield {
-                'img': response.css('a img').extract_first(),
-                'totalPage': parsedTP,
-                'name': name,
-                'page': response.meta.get('page')
+        yield {
+            'img': response.css('a img').extract_first(),
+            'totalPage': parsedTP,
+            'name': name,
+            'page': response.meta.get('page')
         }
 
 

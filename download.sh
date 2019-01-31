@@ -7,7 +7,7 @@ while read line; do
   arr=(${line//||/ })
   mkdir ~/manga/${arr[1]}
   if [ ! -f ~/manga/${arr[1]}/${arr[2]}.jpg ]; then
-    wget -O ~/manga/${arr[1]}/${arr[2]}.jpg ${arr[0]} &
+    wget -O --timeout==90 ~/manga/${arr[1]}/${arr[2]}.jpg ${arr[0]} &
   fi
   if (("$count">30));then
     sleep 5

@@ -38,12 +38,12 @@ def getLatest(url):
     
 
 
-def update(name,url,latest,numPages):
+def update(name,url,latest):
     try:
         conn = connect()
         cursor = conn.cursor()
-        query = "INSERT INTO manga (name,url,latest,numPages,crawled) VALUES (%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE latest=%s"
-        args = (name, url, latest, numPages, 0, latest)
+        query = "INSERT INTO manga (name,url,latest,crawled) VALUES (%s,%s,%s,%s) ON DUPLICATE KEY UPDATE latest=%s"
+        args = (name, url, latest, 0, latest)
         cursor.execute(query,args)
         conn.commit()
     except Error as e:
