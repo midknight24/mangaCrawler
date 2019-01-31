@@ -82,6 +82,20 @@ def getMangaPage(name):
         conn.close()
         return page
 
+def updateMangaPage(name,totalPage):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        query = "UPDATE manga SET numPages = %s WHERE name = %s"
+        args = (totalPage,name)
+        cursor.execute(query,args)
+        conn.commit()
+    except Error as e:
+        print('Error:',e)
+    finally:
+        cursor.close()
+        conn.close()
+
 
 def getCrawled(name):
     try:

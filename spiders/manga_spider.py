@@ -3,6 +3,7 @@ from scrapy_splash import SplashRequest
 #store urls of target websites here
 import toCrawls
 import time
+from .. import sqlConnector
 from .. import mangaList
 
 class mangaSpider(scrapy.Spider):
@@ -47,15 +48,17 @@ class mangaSpider(scrapy.Spider):
                 )
 
     def parse(self,response):
-	parsedTP = 15
-	rawTotalPages = response.xpath('/html/body/table[2]/tbody/tr/td/text()').get()
-	print(rawTotalPages)
-	parsedTP = rawTotalPages.split('|')[1].split(u'\u5171')[1].split(u'\u9875')[0]
-        yield {
-		'img': response.css('a img').extract_first(),
-		'totalPage': int(parsedTP),
-	    	'name': response.meta.get('name'),
-		'page': response.meta.get('page')
-	}
+        #default page num
+        parsedTP = 15
+        rawTotalPages = response.xpath('/html/body/table[2]/tbody/tr/td/text()').get()
+        parsedTP = int(rawTotalPages.split('|')[1].split(u'\u5171')[1].split(u'\u9875')[0])
+        name = response.meta.get('name')
+        sqlConnector.updateMangaPage(name,parsedTP)
+            yield {
+                'img': response.css('a img').extract_first(),
+                'totalPage': parsedTP,
+                'name': name,
+                'page': response.meta.get('page')
+        }
 
 
