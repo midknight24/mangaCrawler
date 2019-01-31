@@ -47,9 +47,14 @@ class mangaSpider(scrapy.Spider):
                 )
 
     def parse(self,response):
+	parsedTP = 15
+	rawTotalPages = response.xpath('/html/body/table[2]/tbody/tr/td/text()').get()
+	print(rawTotalPages)
+	parsedTP = rawTotalPages.split('|')[1].split(u'\u5171')[1].split(u'\u9875')[0]
         yield {
 		'img': response.css('a img').extract_first(),
-	    'name': response.meta.get('name'),
+		'totalPage': int(parsedTP),
+	    	'name': response.meta.get('name'),
 		'page': response.meta.get('page')
 	}
 

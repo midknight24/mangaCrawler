@@ -85,6 +85,7 @@ def getMangaPage(name):
 
 def getCrawled(name):
     try:
+	status = 0
         conn = connect()
         cursor = conn.cursor()
         query = "SELECT crawled FROM manga WHERE name=%s"

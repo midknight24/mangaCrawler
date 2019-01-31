@@ -12,7 +12,7 @@ wlist=[
     {'url':'http://comic.kukudm.com/comiclist/4/index.htm',
     'name':'one_piece'},
     {'url': 'http://comic.kukudm.com/comiclist/2330/index.htm',
-    'name': 'peter's_saint_time'},
+    'name': 'peters_saint_time'},
     {'url':'http://comic.kukudm.com/comiclist/2548/index.htm',
     'name':'back_kon_hair_kon'},
     {'url':'http://comic.kukudm.com/comiclist/2549/index.htm',
