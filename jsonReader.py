@@ -10,9 +10,15 @@ for i in range(len(data)):
     img_tag = data[i]['img']
     if img_tag == None:
         continue
-    name=data[i]['name']
-    page=data[i]['page']
+    name = data[i]['name']
+    page = data[i]['page']
+    tp = data[i]['totalPage']
     url = img_tag.split('=')[1].split('>')[0].split('\"')[1]
-    out.write(url+"||"+name+"||"+str(page))
+
+    #append 0 in the front to avoid lexi order fuck things up
+    zeros = len(str(tp)) - len(str(page))
+    page_str = '0'*zeros+str(page)         
+
+    out.write(url + "||" + name + "||" + page_str)
     out.write('\n')
 
