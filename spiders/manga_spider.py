@@ -12,6 +12,7 @@ class mangaSpider(scrapy.Spider):
     def start_requests(self):
         wait_script = """
                         function main(splash,args)
+			    splash.images_enabled = false
                             assert(splash:go(args.url))
                             assert(splash:wait(1))
 

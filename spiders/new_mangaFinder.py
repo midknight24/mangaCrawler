@@ -1,6 +1,7 @@
 import scrapy
 from .. import watchList
 from .. import sqlConnector
+from .. import wechat
 
 class spider(scrapy.Spider):
     name = "newEpi"
@@ -26,6 +27,8 @@ class spider(scrapy.Spider):
         older = sqlConnector.getLatest(name)
         status = sqlConnector.getCrawled(name)
         if result != older or older == None or status==0 :
+            #notify via wechat
+	    wechat.notifyNewChapter(name)
             #update db
             sqlConnector.update(name,url,result)
             yield {
