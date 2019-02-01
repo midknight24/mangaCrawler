@@ -27,6 +27,7 @@ class spider(scrapy.Spider):
         older = sqlConnector.getLatest(name)
         status = sqlConnector.getCrawled(name)
         if result != older or older == None or status==0 :
+	    print("///////////////////NEW CHAP: "+name)
             #notify via wechat
 	    wechat.notifyNewChapter(name)
             #update db

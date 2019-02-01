@@ -28,4 +28,7 @@ wlist=[
     {'url':'http://comic.kukudm.com/comiclist/2157/index.htm',
     'name':'lusty_qin_chan_cant_study'},
     {'url':'http://comic.kukudm.com/comiclist/189/index.htm',
-    'name':'berserk'}]
+    'name':'berserk'},
+    {'url':'http://comic.kukudm.com/comiclist/2291/index.htm',
+    'name':'drink_after_we_married'}
+]
