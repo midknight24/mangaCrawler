@@ -12,6 +12,7 @@ for i in range(len(data)):
         continue
     name = data[i]['name']
     page = data[i]['page']
+    numChap = data[i]['chapNum']
     tp = data[i]['totalPage']
     url = img_tag.split('=')[1].split('>')[0].split('\"')[1]
 
@@ -19,6 +20,6 @@ for i in range(len(data)):
     zeros = len(str(tp)) - len(str(page))
     page_str = '0'*zeros+str(page)         
 
-    out.write(url + "||" + name + "||" + page_str)
+    out.write(url + "||" + name + "||" + page_str + "||" + str(numChap))
     out.write('\n')
 

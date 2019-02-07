@@ -4,7 +4,7 @@ times=3
 counter=1
 while [ $counter -le $times ]
 do
-    docker restart nostalgic_gates
+    docker restart focused_heisenberg
     scrapy crawl newEpi -o ${path}/jsonWatchList.json
     scrapy crawl manga -o ${path}/rawList.json
     python jsonReader.py ${path}/rawList.json ${path}/toDownload

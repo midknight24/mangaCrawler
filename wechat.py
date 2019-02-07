@@ -3,7 +3,7 @@ import requests
 import os
 
 def notifyNewChapter(name):
-	with open('notiList','a') as f:
+	with open('notiList','a+') as f:
 		f.write(name+'\n')
 
 def pushAll():

@@ -66,6 +66,35 @@ def getMangaNames():
         conn.close()
         return names
 
+def getNumChap(name):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        query = "SELECT newestChap FROM manga WHERE name= %s"
+        args = name
+        cursor.execute(query,args)
+        numChap = cursor.fetchone()
+    except Error as e:
+        print('Error:',e)
+    finally:
+        cursor.close()
+        conn.close()
+        return numChap
+
+def updateNumChap(name,newChap):
+    try:
+        conn = connect()
+        cursor = conn.cursor()
+        query = "UPDATE manga SET newestChap = %s WHERE name = %s"
+        args = (newChap,name)
+        cursor.execute(query,args)
+        conn.commit()
+    except Error as e:
+        print('Error:',e)
+    finally:
+        cursor.close()
+        conn.close()
+
 def getMangaPage(name):
     try:
         conn = connect()

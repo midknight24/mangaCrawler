@@ -52,13 +52,17 @@ class mangaSpider(scrapy.Spider):
     def parse(self,response):
         #default page num
         parsedTP = 15
+	chapNum = 99
         rawTotalPages = response.xpath('/html/body/table[2]/tbody/tr/td/text()').get()
+	chapNum = int(rawTotalPages.split('|')[0].rsplit(" ")[1].split(u"\u8bdd")[0])
         parsedTP = int(rawTotalPages.split('|')[1].split(u'\u5171')[1].split(u'\u9875')[0])
         name = response.meta.get('name')
+	sqlConnector.updateNumChap(name,chapNum)
         sqlConnector.updateMangaPage(name,parsedTP)
         yield {
             'img': response.css('a img').extract_first(),
             'totalPage': parsedTP,
+	    'chapNum': chapNum,
             'name': name,
             'page': response.meta.get('page')
         }
