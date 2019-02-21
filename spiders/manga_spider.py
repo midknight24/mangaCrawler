@@ -36,7 +36,7 @@ class mangaSpider(scrapy.Spider):
         for manga in mangaList.fetchUrls():
             name = manga[1]
             numPage = sqlConnector.getMangaPage(name)
-	    urls = toCrawls.createChap(manga[0],numPage)
+            urls = toCrawls.createChap(manga[0],numPage)
             page = 0
             for url in urls:
                 page = page + 1
@@ -52,17 +52,22 @@ class mangaSpider(scrapy.Spider):
     def parse(self,response):
         #default page num
         parsedTP = 15
-	chapNum = 99
+        chapNum = 99
         rawTotalPages = response.xpath('/html/body/table[2]/tbody/tr/td/text()').get()
-	chapNum = int(rawTotalPages.split('|')[0].rsplit(" ")[1].split(u"\u8bdd")[0])
+        #print("/////////////////////////////////////")
+        #print(rawTotalPages)
+        #print(rawTotalPages.split('|'))
+        #print(rawTotalPages.split('|')[0].rsplit(" "))
+        #print(rawTotalPages.split('|')[0].rsplit(" ")[1].split(u"\u8bdd"))
+        chapNum = int(rawTotalPages.split('|')[0].rsplit(" ")[-2].split(u"\u8bdd")[0])
         parsedTP = int(rawTotalPages.split('|')[1].split(u'\u5171')[1].split(u'\u9875')[0])
         name = response.meta.get('name')
-	sqlConnector.updateNumChap(name,chapNum)
+        sqlConnector.updateNumChap(name,chapNum)
         sqlConnector.updateMangaPage(name,parsedTP)
         yield {
             'img': response.css('a img').extract_first(),
             'totalPage': parsedTP,
-	    'chapNum': chapNum,
+            'chapNum': chapNum,
             'name': name,
             'page': response.meta.get('page')
         }
