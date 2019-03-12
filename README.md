@@ -11,3 +11,5 @@ missing pages.
 
 Made the crawlManga.sh into a crontab that runs every 1 hours to check for new chapters. Will receive
 wechat notification if found.
+
+pyasn1 1.4 works, while pyasn 1.6 does not for unknown reason
